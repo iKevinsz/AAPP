@@ -1,22 +1,29 @@
-import Routes from "./src/routes/routes";
+// App.js
+
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { CartProvider } from './context/CartContext.js';
-import { FavProvider } from './context/FavContext.js';
-import { ThemeContext, ThemeProvider } from './ThemeContext'; // Importe o ThemeProvider ajustado
-import { AuthProvider } from './context/AuthContext.js';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LojaScreen from './app/LojaScreen';  // Importando a tela da loja
+import CarrinhoScreen from './app/CarrinhoScreen';  // Importando a tela do carrinho
+
+// Criando a navegação
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <CartProvider>
-          <FavProvider>
-            <NavigationContainer>
-              <Routes />
-            </NavigationContainer>
-          </FavProvider>
-        </CartProvider>
-      </ThemeProvider>
-    </AuthProvider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Loja">
+        <Stack.Screen
+          name="Loja"
+          component={LojaScreen}
+          options={{ title: 'Pizzaria do Kevin' }}  // Título da tela da loja
+        />
+        <Stack.Screen
+          name="Carrinho"
+          component={CarrinhoScreen}
+          options={{ title: 'Carrinho' }}  // Título da tela do carrinho
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
